@@ -1,13 +1,15 @@
 /* Víbrur Games — dromi.is */
 
 :root {
-  --bg: #0a0a0b;
-  --bg2: #0e0e10;
-  --ink: #cfcfc8;
-  --dim: #73736c;
-  --faint: #3c3c39;
-  --line: #1e1e1d;
-  --glow: #eae4d3;
+  --bg: #b0c6d8;
+  --sky-top: #a3bdd4;
+  --sky-mid: #bdcfdf;
+  --sky-low: #dfe9f0;
+  --ink: #2f3e4d;
+  --dim: #61788a;
+  --faint: #8ea4b4;
+  --line: rgba(47, 62, 77, 0.16);
+  --hi: #f6fafc;
   --serif: Georgia, 'Times New Roman', serif;
   --mono: ui-monospace, 'Cascadia Mono', Consolas, monospace;
 }
@@ -24,9 +26,17 @@ html, body {
   line-height: 1.75;
 }
 
+body {
+  background: linear-gradient(180deg,
+    var(--sky-top) 0%,
+    var(--sky-mid) 55%,
+    var(--sky-low) 100%);
+  background-attachment: fixed;
+}
+
 html { scroll-behavior: smooth; }
 
-::selection { background: var(--glow); color: var(--bg); }
+::selection { background: var(--ink); color: var(--hi); }
 
 a { color: var(--ink); text-decoration: none; }
 
@@ -36,7 +46,7 @@ a { color: var(--ink); text-decoration: none; }
   position: fixed; inset: -60px;
   pointer-events: none;
   z-index: 40;
-  opacity: 0.055;
+  opacity: 0.06;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   animation: grain 0.9s steps(4) infinite;
 }
@@ -49,6 +59,7 @@ a { color: var(--ink); text-decoration: none; }
   100% { transform: translate(0, 0); }
 }
 
+/* a soft patch of sunlight; drifts on its own when you go idle */
 #light {
   position: fixed;
   left: 0; top: 0;
@@ -58,9 +69,9 @@ a { color: var(--ink); text-decoration: none; }
   z-index: 1;
   border-radius: 50%;
   background: radial-gradient(circle,
-    rgba(236, 230, 212, 0.060) 0%,
-    rgba(236, 230, 212, 0.028) 28%,
-    rgba(236, 230, 212, 0.0) 62%);
+    rgba(255, 255, 255, 0.22) 0%,
+    rgba(255, 255, 255, 0.09) 30%,
+    rgba(255, 255, 255, 0.0) 62%);
   will-change: transform;
 }
 
@@ -70,28 +81,26 @@ a { color: var(--ink); text-decoration: none; }
   z-index: 2;
 }
 
-#flicker {
+/* a cloud crossing the set lights, every so often */
+#cloud {
   position: fixed; inset: 0;
   pointer-events: none;
-  z-index: 50;
-  background: #000;
+  z-index: 3;
+  background: #3a4f63;
   opacity: 0;
+  animation: cloudpass 57s ease-in-out infinite;
 }
 
-html.flick #flicker { animation: flick 150ms linear; }
-
-@keyframes flick {
-  0%   { opacity: 0; }
-  18%  { opacity: 0.16; }
-  34%  { opacity: 0.02; }
-  55%  { opacity: 0.11; }
-  72%  { opacity: 0.01; }
-  100% { opacity: 0; }
+@keyframes cloudpass {
+  0%, 74%, 100% { opacity: 0; }
+  84%           { opacity: 0.07; }
+  90%           { opacity: 0.05; }
+  94%           { opacity: 0.08; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   #grain { animation: none; }
-  html.flick #flicker { animation: none; }
+  #cloud { animation: none; }
   html { scroll-behavior: auto; }
 }
 
@@ -109,7 +118,6 @@ nav {
   font-size: 0.72rem;
   letter-spacing: 0.18em;
   text-transform: lowercase;
-  mix-blend-mode: difference;
 }
 
 nav .wordmark {
@@ -126,7 +134,7 @@ nav .links a {
 }
 
 nav .links a:hover {
-  color: var(--glow);
+  color: var(--ink);
   letter-spacing: 0.26em;
 }
 
@@ -140,7 +148,7 @@ nav .links a:hover {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 3;
+  z-index: 4;
 }
 
 .hero h1 {
@@ -149,7 +157,7 @@ nav .links a:hover {
   letter-spacing: 0.42em;
   text-indent: 0.42em; /* balance the trailing letter-space */
   text-transform: uppercase;
-  color: var(--glow);
+  color: var(--ink);
   margin: 0;
   text-align: center;
 }
@@ -166,14 +174,18 @@ nav .links a:hover {
   transition-duration: 0.18s;
 }
 
-.hero .sub {
-  margin-top: 1.1rem;
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.5em;
-  text-indent: 0.5em;
+/* the final S has drifted away from the rest */
+.hero h1 .s-final {
+  margin-left: 1.05em;
   color: var(--dim);
-  text-transform: lowercase;
+  animation: sdrift 13s ease-in-out infinite;
+}
+
+@keyframes sdrift {
+  0%, 100% { transform: translate(0, 0); opacity: 0.55; }
+  38%      { transform: translate(0.28em, 0.04em); opacity: 0.9; }
+  55%      { transform: translate(0.22em, 0.02em); opacity: 0.65; }
+  70%      { transform: translate(0.34em, 0.05em); opacity: 0.85; }
 }
 
 .beacon-row {
@@ -187,13 +199,13 @@ nav .links a:hover {
 .beacon {
   width: 5px; height: 5px;
   border-radius: 50%;
-  background: var(--glow);
+  background: var(--hi);
   animation: pulse 4s ease-in-out infinite;
 }
 
 @keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(234, 228, 211, 0.35); opacity: 0.5; }
-  50%      { box-shadow: 0 0 18px 4px rgba(234, 228, 211, 0.14); opacity: 1; }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5); opacity: 0.5; }
+  50%      { box-shadow: 0 0 18px 4px rgba(255, 255, 255, 0.3); opacity: 1; }
 }
 
 .soon {
@@ -201,16 +213,16 @@ nav .links a:hover {
   font-size: 0.68rem;
   letter-spacing: 0.6em;
   text-indent: 0.6em;
-  color: var(--faint);
+  color: var(--dim);
   text-transform: lowercase;
   animation: breathe 7s ease-in-out infinite;
 }
 
 @keyframes breathe {
-  0%, 100% { opacity: 0.25; }
-  46%      { opacity: 0.85; }
-  52%      { opacity: 0.4; }
-  58%      { opacity: 0.8; }
+  0%, 100% { opacity: 0.35; }
+  46%      { opacity: 0.9; }
+  52%      { opacity: 0.5; }
+  58%      { opacity: 0.85; }
 }
 
 .scrollcue {
@@ -227,13 +239,13 @@ nav .links a:hover {
   position: absolute;
   left: 0; top: -40%;
   width: 100%; height: 40%;
-  background: var(--glow);
+  background: var(--ink);
   animation: drip 3.2s ease-in infinite;
 }
 
 @keyframes drip {
   0%   { top: -40%; opacity: 0; }
-  30%  { opacity: 0.8; }
+  30%  { opacity: 0.7; }
   100% { top: 110%; opacity: 0; }
 }
 
@@ -241,7 +253,7 @@ nav .links a:hover {
 
 main {
   position: relative;
-  z-index: 3;
+  z-index: 4;
   max-width: 38rem;
   margin: 0 auto;
   padding: 0 1.5rem 8rem;
@@ -309,8 +321,8 @@ section a { text-decoration: underline; text-underline-offset: 3px; }
 .redacted i:nth-child(4) { width: 44%; animation-delay: 3.8s; }
 
 @keyframes redact {
-  0%, 100% { opacity: 0.75; }
-  50%      { opacity: 0.35; }
+  0%, 100% { opacity: 0.85; }
+  50%      { opacity: 0.4; }
 }
 
 /* ---- team ---- */
@@ -327,7 +339,7 @@ section a { text-decoration: underline; text-underline-offset: 3px; }
   position: relative;
   aspect-ratio: 4 / 5;
   border: 1px solid var(--line);
-  background: var(--bg2);
+  background: rgba(255, 255, 255, 0.28);
   overflow: hidden;
   margin-bottom: 0.9rem;
 }
@@ -336,14 +348,14 @@ section a { text-decoration: underline; text-underline-offset: 3px; }
   width: 100%; height: 100%;
   object-fit: cover;
   display: block;
-  filter: grayscale(0.35) contrast(1.05);
+  filter: grayscale(0.25) contrast(1.03);
 }
 
 .portrait.empty::before {
   content: "";
   position: absolute; inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: 0.07;
+  opacity: 0.06;
 }
 
 .portrait.empty::after {
@@ -451,9 +463,8 @@ section a { text-decoration: underline; text-underline-offset: 3px; }
 }
 
 .support-btn:hover {
-  border-color: var(--glow);
-  color: var(--glow);
-  background: rgba(234, 228, 211, 0.03);
+  border-color: var(--ink);
+  background: rgba(255, 255, 255, 0.35);
 }
 
 .support-btn.ghost {
@@ -466,7 +477,7 @@ section a { text-decoration: underline; text-underline-offset: 3px; }
 
 footer {
   position: relative;
-  z-index: 3;
+  z-index: 4;
   border-top: 1px solid var(--line);
   margin-top: 4rem;
   padding: 3rem 1.6rem 3.4rem;
@@ -483,7 +494,7 @@ footer {
 footer .col { display: flex; flex-direction: column; gap: 0.5rem; }
 
 footer a { color: var(--dim); transition: color 0.5s ease; }
-footer a:hover { color: var(--glow); }
+footer a:hover { color: var(--ink); }
 
 footer a.pending {
   color: var(--faint);

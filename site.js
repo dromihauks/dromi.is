@@ -93,7 +93,7 @@ const CONFIG = {
 
     function draw(now) {
       ctx.clearRect(0, 0, w, h);
-      ctx.fillStyle = "#eae4d3";
+      ctx.fillStyle = "#ffffff";
       for (const m of motes) {
         m.x += m.vx + Math.sin(now * 0.0003 + m.p) * 0.05;
         m.y += m.vy;
@@ -108,19 +108,6 @@ const CONFIG = {
       requestAnimationFrame(draw);
     }
     requestAnimationFrame(draw);
-  }
-
-  /* ---- fluorescent flicker ---------------------------------- */
-  if (!reduceMotion) {
-    (function scheduleFlicker() {
-      setTimeout(() => {
-        document.documentElement.classList.add("flick");
-        setTimeout(() => {
-          document.documentElement.classList.remove("flick");
-          scheduleFlicker();
-        }, 180);
-      }, 9000 + Math.random() * 18000);
-    })();
   }
 
   /* ---- Reykjavík clock -------------------------------------- */
