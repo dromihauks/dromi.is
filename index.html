@@ -3,74 +3,81 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Drómi — independent game studio, Iceland</title>
-<meta name="description" content="Drómi is an independent game studio in Iceland, currently working on an unannounced multiplayer game.">
-<style>
-  html, body {
-    margin: 0;
-    padding: 0;
-    background: #0f0f10;
-    color: #d8d8d4;
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 17px;
-    line-height: 1.7;
-  }
-  main {
-    max-width: 34rem;
-    margin: 0 auto;
-    padding: 18vh 1.5rem 6rem;
-  }
-  h1 {
-    font-size: 1.6rem;
-    font-weight: normal;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    color: #f0efe9;
-    margin: 0 0 0.4rem;
-  }
-  .tagline {
-    color: #8b8b85;
-    margin: 0 0 3rem;
-  }
-  p {
-    margin: 0 0 1.4rem;
-  }
-  a {
-    color: #f0efe9;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-  h2 {
-    font-size: 0.8rem;
-    font-weight: normal;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: #8b8b85;
-    margin: 3.5rem 0 0.8rem;
-  }
-  footer {
-    margin-top: 5rem;
-    color: #5d5d58;
-    font-size: 0.85rem;
-  }
-</style>
+<title>Víbrur Games</title>
+<!-- TODO(you): meta description wording -->
+<meta name="description" content="Víbrur Games">
+<meta name="theme-color" content="#0a0a0b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230a0a0b'/%3E%3Ccircle cx='8' cy='8' r='2' fill='%23eae4d3'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+<div id="light" aria-hidden="true"></div>
+<canvas id="motes" aria-hidden="true"></canvas>
+<div id="grain" aria-hidden="true"></div>
+<div id="flicker" aria-hidden="true"></div>
+
+<nav>
+  <a class="wordmark" href="#top">Víbrur</a>
+  <div class="links">
+    <a href="#about">about</a>
+    <a href="#team">team</a>
+    <a href="#projects">projects</a>
+    <a href="donate.html">donate</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <h1 aria-label="Víbrur Games"><span>V</span><span>Í</span><span>B</span><span>R</span><span>U</span><span>R</span>&nbsp;&nbsp;<span>G</span><span>A</span><span>M</span><span>E</span><span>S</span></h1>
+  <div class="beacon-row">
+    <div class="beacon" aria-hidden="true"></div>
+    <!-- TODO(you): confirm or replace this word -->
+    <div class="soon">soon</div>
+  </div>
+  <div class="scrollcue" aria-hidden="true"></div>
+</header>
+
 <main>
-  <h1>Drómi</h1>
-  <p class="tagline">Independent game studio in Iceland</p>
 
-  <p>We are a team of two. One of us designs and programs, the other is our art
-  director and owns how everything looks.</p>
+  <section id="about" class="reveal">
+    <h2 class="sec-label" data-index="01">About</h2>
+    <!-- TODO(you): replace the redacted bars with your text, verbatim -->
+    <div class="redacted" aria-label="text coming soon">
+      <i></i><i></i><i></i><i></i>
+    </div>
+  </section>
 
-  <p>We are building a multiplayer game in Unreal Engine 5. It is not announced
-  yet, so there is not much we can show here. We playtest it every week with
-  friends, and we will share more when it is ready to be seen.</p>
+  <section id="team" class="reveal">
+    <h2 class="sec-label" data-index="02">Team</h2>
+    <!-- Members are defined in site.js → CONFIG.team.
+         Drop photos into a /team folder and reference them there. -->
+    <div class="team-grid" id="team-grid"></div>
+  </section>
 
-  <h2>Contact</h2>
-  <p>Business and press: <a href="mailto:dromi@dromi.is">dromi@dromi.is</a></p>
+  <section id="projects" class="reveal">
+    <h2 class="sec-label" data-index="03">Projects</h2>
+    <div class="project-empty">
+      <span class="idx">001</span>
+      <div class="shimmer" aria-hidden="true"></div>
+    </div>
+  </section>
 
-  <footer>&copy; 2026 Drómi, Iceland</footer>
 </main>
+
+<footer>
+  <div class="col">
+    <a href="mailto:dromi@dromi.is">dromi@dromi.is</a>
+    <span>&copy; 2026 Víbrur Games</span>
+  </div>
+  <div class="col">
+    <a data-social="instagram">instagram</a>
+    <a data-social="tiktok">tiktok</a>
+  </div>
+  <div class="col">
+    <span id="clock"></span>
+  </div>
+</footer>
+
+<script src="site.js"></script>
 </body>
 </html>
