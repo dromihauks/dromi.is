@@ -174,20 +174,6 @@ nav .links a:hover {
   transition-duration: 0.18s;
 }
 
-/* the final S has drifted away from the rest */
-.hero h1 .s-final {
-  margin-left: 1.05em;
-  color: var(--dim);
-  animation: sdrift 13s ease-in-out infinite;
-}
-
-@keyframes sdrift {
-  0%, 100% { transform: translate(0, 0); opacity: 0.55; }
-  38%      { transform: translate(0.28em, 0.04em); opacity: 0.9; }
-  55%      { transform: translate(0.22em, 0.02em); opacity: 0.65; }
-  70%      { transform: translate(0.34em, 0.05em); opacity: 0.85; }
-}
-
 .beacon-row {
   margin-top: 4.5rem;
   display: flex;
@@ -412,6 +398,14 @@ section a { text-decoration: underline; text-underline-offset: 3px; }
   letter-spacing: 0.4em;
   text-indent: 0.4em;
   color: var(--faint);
+}
+
+.project-empty .tba {
+  font-size: 1.05rem;
+  letter-spacing: 0.5em;
+  text-indent: 0.5em;
+  text-transform: uppercase;
+  color: var(--ink);
 }
 
 .shimmer {
