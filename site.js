@@ -3,7 +3,7 @@
    CONFIG is the only thing you need to edit.
    - socials: paste full profile URLs; empty string = shown dimmed, unclickable
    - team:    add members; empty array = two placeholder frames
-   - donate:  add links (Ko-fi, PayPal, etc.); empty = placeholder button
+   - support: add links (Ko-fi, PayPal, etc.); empty = placeholder button
    ================================================================ */
 
 const CONFIG = {
@@ -14,7 +14,7 @@ const CONFIG = {
   team: [
     // { name: "Name Here", role: "role here", img: "team/photo.jpg" },
   ],
-  donate: [
+  support: [
     // { label: "ko-fi", url: "https://ko-fi.com/yourpage" },
   ],
 };
@@ -200,24 +200,24 @@ const CONFIG = {
     }
   }
 
-  /* ---- donate buttons ---------------------------------------- */
-  const donateWrap = document.getElementById("donate-options");
-  if (donateWrap) {
-    if (CONFIG.donate.length) {
-      for (const d of CONFIG.donate) {
+  /* ---- support buttons --------------------------------------- */
+  const supportWrap = document.getElementById("support-options");
+  if (supportWrap) {
+    if (CONFIG.support.length) {
+      for (const d of CONFIG.support) {
         const a = document.createElement("a");
-        a.className = "donate-btn";
+        a.className = "support-btn";
         a.href = d.url;
         a.target = "_blank";
         a.rel = "noopener";
         a.textContent = d.label;
-        donateWrap.appendChild(a);
+        supportWrap.appendChild(a);
       }
     } else {
       const ghost = document.createElement("span");
-      ghost.className = "donate-btn ghost";
+      ghost.className = "support-btn ghost";
       ghost.textContent = "— — —";
-      donateWrap.appendChild(ghost);
+      supportWrap.appendChild(ghost);
     }
   }
 })();

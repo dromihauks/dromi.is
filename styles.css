@@ -424,21 +424,21 @@ section a { text-decoration: underline; text-underline-offset: 3px; }
   60%, 100% { left: 110%; }
 }
 
-/* ---- donate page ---- */
+/* ---- support page ---- */
 
 .page {
   min-height: 72vh;
   padding-top: 22vh;
 }
 
-.donate-options {
+.support-options {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   margin-top: 2.6rem;
 }
 
-.donate-btn {
+.support-btn {
   font-family: var(--mono);
   font-size: 0.72rem;
   letter-spacing: 0.22em;
@@ -450,13 +450,13 @@ section a { text-decoration: underline; text-underline-offset: 3px; }
   transition: border-color 0.5s ease, color 0.5s ease, background 0.5s ease;
 }
 
-.donate-btn:hover {
+.support-btn:hover {
   border-color: var(--glow);
   color: var(--glow);
   background: rgba(234, 228, 211, 0.03);
 }
 
-.donate-btn.ghost {
+.support-btn.ghost {
   border-style: dashed;
   color: var(--faint);
   pointer-events: none;
