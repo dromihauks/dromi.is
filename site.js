@@ -12,9 +12,9 @@ const CONFIG = {
     tiktok: "",      // e.g. "https://www.tiktok.com/@yourhandle"
   },
   team: [
-    { name: "Drómi Hauksson", role: "executive founder · game director" },
+    { name: "Drómi Hauksson", role: "executive founder · game director", img: "team/dromi.jpg" },
     { name: "Hrafnar", role: "art director", img: "team/hrafnar_web.jpg" },
-    { name: "Greta Kudabaite", role: "executive · qa & culture lead" },
+    { name: "Greta Kudabaite", role: "executive · qa & culture lead", img: "team/greta_web.jpg" },
   ],
   support: [
     // { label: "ko-fi", url: "https://ko-fi.com/yourpage" },
