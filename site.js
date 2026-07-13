@@ -8,8 +8,8 @@
 
 const CONFIG = {
   socials: {
-    instagram: "",   // e.g. "https://www.instagram.com/yourhandle"
-    tiktok: "",      // e.g. "https://www.tiktok.com/@yourhandle"
+    instagram: "https://www.instagram.com/vibrur",
+    tiktok: "https://www.tiktok.com/@vibrur", // assumed same handle — correct me if TikTok differs
   },
   team: [
     { name: "Drómi Hauksson", role: "executive founder · game director", img: "team/dromi.jpg" },
