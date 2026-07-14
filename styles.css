@@ -477,6 +477,34 @@ section a { text-decoration: underline; text-underline-offset: 3px; }
   pointer-events: none;
 }
 
+/* ---- legal / policy pages ---- */
+
+.legal .updated {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: lowercase;
+  color: var(--dim);
+  margin: 0 0 2.6rem;
+}
+
+.legal .lede { color: var(--ink); }
+
+.legal h3 {
+  font-size: 1rem;
+  font-weight: normal;
+  color: var(--ink);
+  margin: 2.8rem 0 0.8rem;
+}
+
+.legal ul {
+  margin: 0 0 1.5rem;
+  padding-left: 1.2rem;
+  color: var(--ink);
+}
+
+.legal li { margin: 0 0 0.6rem; }
+
 /* ---- footer ---- */
 
 footer {
