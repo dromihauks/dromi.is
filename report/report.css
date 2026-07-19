@@ -1,0 +1,180 @@
+/* Víbrur Games — playtest report page */
+
+.report {
+  padding-top: 18vh;
+  max-width: 40rem;
+}
+
+.report section { padding: 4.5rem 0 1rem; }
+.report section:first-of-type { padding-top: 0; }
+
+.report .mono-note {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  line-height: 2;
+  color: var(--dim);
+}
+
+.report .mono-note code {
+  font-size: 1em;
+  letter-spacing: 0.06em;
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid var(--line);
+  padding: 0.15em 0.5em;
+  word-break: break-all;
+}
+
+/* ---- questions ---- */
+
+.q { margin: 0 0 2.4rem; }
+
+.q-label {
+  display: block;
+  color: var(--ink);
+  margin: 0 0 0.75rem;
+}
+
+.q-label .req,
+.hint-inline {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: lowercase;
+  color: var(--faint);
+}
+
+.q .hint {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  color: var(--faint);
+  margin-top: 0.45rem;
+}
+
+.q input[type="text"],
+.q textarea {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1rem;
+  line-height: 1.6;
+  padding: 0.7rem 0.9rem;
+  outline: none;
+  transition: border-color 0.4s ease, background 0.4s ease;
+}
+
+.q textarea {
+  min-height: 6.5rem;
+  resize: vertical;
+}
+
+.q input[type="text"]:focus,
+.q textarea:focus {
+  border-color: var(--ink);
+  background: rgba(255, 255, 255, 0.55);
+}
+
+/* ---- choice rows ---- */
+
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.choices label {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.25);
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: lowercase;
+  color: var(--dim);
+  transition: border-color 0.4s ease, color 0.4s ease, background 0.4s ease;
+  user-select: none;
+}
+
+.choices label:hover {
+  border-color: var(--dim);
+  color: var(--ink);
+}
+
+.choices input[type="radio"] {
+  accent-color: var(--ink);
+  margin: 0;
+  width: 0.85rem;
+  height: 0.85rem;
+}
+
+.choices label:has(input:checked) {
+  border-color: var(--ink);
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.choices.scale label { padding: 0.45rem 0.6rem; }
+
+/* ---- send section ---- */
+
+.send-section .step-h {
+  font-size: 1rem;
+  font-weight: normal;
+  color: var(--ink);
+  margin: 3rem 0 0.9rem;
+}
+
+.report-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.2rem 0 0.8rem;
+}
+
+button.support-btn {
+  appearance: none;
+  background: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+}
+
+button.support-btn:hover { background: rgba(255, 255, 255, 0.5); }
+
+.steps {
+  margin: 1.2rem 0 1.5rem;
+  padding-left: 1.3rem;
+}
+
+.steps li { margin: 0 0 0.85rem; }
+
+.clear-row { margin-top: 3.5rem; }
+
+.linklike {
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  color: var(--faint);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.4s ease;
+}
+
+.linklike:hover { color: var(--ink); }
+
+@media (max-width: 540px) {
+  .report { padding-top: 14vh; }
+  .report section { padding: 3.2rem 0 0.8rem; }
+}

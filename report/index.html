@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="robots" content="noindex">
+<title>Víbrur Games — Playtest Report</title>
+<meta name="description" content="Playtest report form for Better Together testers.">
+<meta name="theme-color" content="#a3bdd4">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23a3bdd4'/%3E%3Ccircle cx='8' cy='8' r='2' fill='%23f6fafc'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="report.css">
+<!-- TODO: update to https://vibrur.is/report/ if/when the domain switches (see CNAME) -->
+<link rel="canonical" href="https://dromi.is/report/">
+</head>
+<body>
+
+<div id="light" aria-hidden="true"></div>
+<canvas id="motes" aria-hidden="true"></canvas>
+<div id="grain" aria-hidden="true"></div>
+<div id="cloud" aria-hidden="true"></div>
+
+<nav>
+  <a class="wordmark" href="../index.html">Víbrur</a>
+  <div class="links">
+    <a href="../index.html#about">about</a>
+    <a href="../index.html#team">team</a>
+    <a href="../index.html#projects">projects</a>
+    <a href="../support.html">support</a>
+  </div>
+</nav>
+
+<main class="page report">
+  <h1 class="visually-hidden">Víbrur Games — Playtest Report</h1>
+
+  <section class="reveal on">
+    <h2 class="sec-label" data-index="00">Playtest report</h2>
+    <p>You played <strong>Better Together</strong>. Thank you. Now tell me everything.</p>
+    <p>Every question is optional except your name — skip anything, but the more you write, the more I can fix. There are no wrong answers; if you were confused, that is the game's fault, not yours, and exactly what I need to hear.</p>
+    <p class="mono-note">Nothing on this page uploads anywhere. Your answers save in this browser as you type; at the end you download them as a file and email it to me together with your game logs. Takes about 10–15 minutes.</p>
+  </section>
+
+  <form id="report-form" autocomplete="off">
+
+  <section class="reveal on" data-sec="Who you are">
+    <h2 class="sec-label" data-index="01">Who you are</h2>
+
+    <div class="q">
+      <label class="q-label" for="q-name">Your name or nickname <span class="req">(required — so I can match you to your log files)</span></label>
+      <input type="text" id="q-name" name="name">
+    </div>
+
+    <div class="q">
+      <label class="q-label" for="q-steam">Your Steam name, if different</label>
+      <input type="text" id="q-steam" name="steam_name">
+    </div>
+
+    <div class="q">
+      <label class="q-label" for="q-when">When did you play, and for roughly how long?</label>
+      <input type="text" id="q-when" name="when_played">
+      <span class="hint">e.g. "July 19, started around 20:00, played about 2 hours"</span>
+    </div>
+
+    <div class="q" data-label="Did you host the game or join someone else's?">
+      <span class="q-label" id="lbl-host">Did you host the game or join someone else's?</span>
+      <div class="choices" role="radiogroup" aria-labelledby="lbl-host">
+        <label><input type="radio" name="host_or_join" value="I hosted"><span>I hosted</span></label>
+        <label><input type="radio" name="host_or_join" value="I joined"><span>I joined</span></label>
+        <label><input type="radio" name="host_or_join" value="not sure"><span>not sure</span></label>
+      </div>
+    </div>
+
+    <div class="q">
+      <label class="q-label" for="q-group">How many players were in your game when it was working? Did you know any of them beforehand?</label>
+      <input type="text" id="q-group" name="group_size">
+    </div>
+
+    <div class="q" data-label="Had you played Better Together before this session?">
+      <span class="q-label" id="lbl-before">Had you played Better Together before this session?</span>
+      <div class="choices" role="radiogroup" aria-labelledby="lbl-before">
+        <label><input type="radio" name="played_before" value="first time"><span>first time</span></label>
+        <label><input type="radio" name="played_before" value="played before"><span>played before</span></label>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal on" data-sec="Your setup">
+    <h2 class="sec-label" data-index="02">Your setup</h2>
+
+    <div class="q">
+      <label class="q-label" for="q-specs">Your PC, if you know it (CPU / graphics card / RAM)</label>
+      <input type="text" id="q-specs" name="pc_specs">
+      <span class="hint">don't worry if you don't — anything helps, even "gaming laptop from 2021"</span>
+    </div>
+
+    <div class="q" data-label="What did you play with?">
+      <span class="q-label" id="lbl-input">What did you play with?</span>
+      <div class="choices" role="radiogroup" aria-labelledby="lbl-input">
+        <label><input type="radio" name="input_device" value="keyboard + mouse"><span>keyboard + mouse</span></label>
+        <label><input type="radio" name="input_device" value="controller"><span>controller</span></label>
+        <label><input type="radio" name="input_device" value="both"><span>both</span></label>
+      </div>
+    </div>
+
+    <div class="q" data-label="Audio">
+      <span class="q-label" id="lbl-audio">Audio</span>
+      <div class="choices" role="radiogroup" aria-labelledby="lbl-audio">
+        <label><input type="radio" name="audio_device" value="headphones"><span>headphones</span></label>
+        <label><input type="radio" name="audio_device" value="speakers"><span>speakers</span></label>
+      </div>
+    </div>
+
+    <div class="q" data-label="Did you use your microphone?">
+      <span class="q-label" id="lbl-mic">Did you use your microphone?</span>
+      <div class="choices" role="radiogroup" aria-labelledby="lbl-mic">
+        <label><input type="radio" name="mic" value="yes, it worked"><span>yes, it worked</span></label>
+        <label><input type="radio" name="mic" value="tried, but it didn't work"><span>tried, didn't work</span></label>
+        <label><input type="radio" name="mic" value="didn't use one"><span>didn't use one</span></label>
+      </div>
+    </div>
+
+    <div class="q" data-label="Internet connection">
+      <span class="q-label" id="lbl-net">Internet connection</span>
+      <div class="choices" role="radiogroup" aria-labelledby="lbl-net">
+        <label><input type="radio" name="internet" value="wired"><span>wired</span></label>
+        <label><input type="radio" name="internet" value="wifi"><span>wifi</span></label>
+        <label><input type="radio" name="internet" value="not sure"><span>not sure</span></label>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal on" data-sec="Getting into the game">
+    <h2 class="sec-label" data-index="03">Getting into the game</h2>
+
+    <div class="q">
+      <label class="q-label" for="q-install">Any trouble installing or launching the game? What happened?</label>
+      <textarea id="q-install" name="install_trouble"></textarea>
+    </div>
+
+    <div class="q">
+      <label class="q-label" for="q-joinflow">How did you get into a game with the others? Describe what you clicked, in order, as well as you remember.</label>
+      <textarea id="q-joinflow" name="join_flow"></textarea>
+    </div>
+
+    <div class="q">
+      <label class="q-label" for="q-joinfail">Did hosting or joining fail at any point? What did you see on screen when it failed?</label>
+      <textarea id="q-joinfail" name="join_failures"></textarea>
+      <span class="hint">the exact words of any error message are gold, even half-remembered</span>
+    </div>
+
+    <div class="q">
+      <label class="q-label" for="q-tries">Roughly how many tries before you were actually in and playing?</label>
+      <input type="text" id="q-tries" name="join_tries">
+    </div>
+
+    <div class="q">
+      <label class="q-label" for="q-rejoin">If the game crashed or you got disconnected: were you able to get back into the same game? How did that go?</label>
+      <textarea id="q-rejoin" name="rejoin_experience"></textarea>
+    </div>
+
+    <div class="q" data-label="How easy was it to get from starting the game to actually playing with your group? (1 = fought it, 10 = effortless)">
+      <span class="q-label" id="lbl-easyjoin">How easy was it to get from starting the game to actually playing with your group? <span class="hint-inline">1 = fought it, 10 = effortless</span></span>
+      <div class="choices scale" role="radiogroup" aria-labelledby="lbl-easyjoin">
+        <label><input type="radio" name="ease_of_joining" value="1"><span>1</span></label>
+        <label><input type="radio" name="ease_of_joining" value="2"><span>2</span></label>
+        <label><input type="radio" name="ease_of_joining" value="3"><span>3</span></label>
+        <label><input type="radio" name="ease_of_joining" value="4"><span>4</span></label>
+        <label><input type="radio" name="ease_of_joining" value="5"><span>5</span></label>
+        <label><input type="radio" name="ease_of_joining" value="6"><span>6</span></label>
+        <label><input type="radio" name="ease_of_joining" value="7"><span>7</span></label>
+        <label><input type="radio" name="ease_of_joining" value="8"><span>8</span></label>
+        <label><input type="radio" name="ease_of_joining" value="9"><span>9</span></label>
+        <label><input type="radio" name="ease_of_joining" value="10"><span>10</span></label>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal on" data-sec="The first minutes">
+    <h2 class="sec-label" data-index="04">The first minutes</h2>
+
+    <div class="q">
+      <label class="q-label" for="q-expect">Before playing, what did you think this game was going to be about?</label>
+      <textarea id="q-expect" name="expectations"></textarea>
+    </div>
+
+    <div class="q">
+      <label class="q-label" for="q-first10">In your first ten minutes, what did you actually do?</label>
+      <textarea id="q-first10" name="first_ten_minutes"></textarea>
+    </div>
+
+    <div class="q">
+      <label class="q-label" for="q-orientation">Did the game explain itself to you — any introduction, orientation, or instructions? What do you remember of it?</label>
+      <textarea id="q-orientation" name="orientation_seen"></textarea>
+      <span class="hint">"I never saw anything like that" is a completely valid answer</span>
+    </div>
+
+    <div class="q">
+      <label class="q-label" for="q-supposed">What did you think you were supposed to be doing?</label>
+      <textarea id="q-supposed" name="perceived_task"></textarea>
+    </div>
+
+    <div class="q">
+      <label class="q-label" for="q-confused">What confused you the most at the start?</label>
+      <textarea id="q-confused" name="early_confusion"></textarea>
+    </div>
+
+    <div class="q">
+      <label class="q-label" for="q-lost">Was there ever a moment you felt lost, with nothing to do? When?</label>
+      <textarea id="q-lost" name="felt_lost"></textarea>
+    </div>
+  </section>
+
+  <section class="reveal on" data-sec="Understanding the game">
+    <h2 class="sec-label" data-index="05">Understanding the game</h2>
+
+    <div class="q">
+      <label class="q-label" for="q-goal">In your own words: what is the goal of this game?</label>
+      <textarea id="q-goal" name="perceived_goal"></textarea>
+      <span class="hint">answer honestly from what the game showed you — not what others told you</span>
+    </div>
+
+    <div class="q">
+      <label class="q-label" for="q-night">What happens at night? What did you do when it got dark?</label>
+      <textarea id="q-night" name="night_understanding"></textarea>
+    </div>
+
+    <div class="q">
+      <label class="q-label" for="q-economy">Money, chores, the shop — what did you figure out about them? Did you buy anything?</label>
+      <textarea id="q-economy" name="economy_understanding"></textarea>
+    </div>
+
+    <div class="q">
+      <label class="q-label" for="q-threat">When did you first realize you were in danger? What happened?</label>
+      <textarea id="q-threat" name="first_danger"></textarea>
+    </div>
+
+    <div class="q">
+      <label class="q-label" for="q-toldby">Was there anything you only understood because another player explained it to you?</label>
+      <textarea id="q-toldby" name="learned_from_others"></textarea>
+    </div>
+
+    <div class="q" data-label="How well did you understand what to do, overall? (1 = no idea the whole time, 10 = always knew)">
+      <span class="q-label" id="lbl-understand">How well did you understand what to do, overall? <span class="hint-inline">1 = no idea the whole time, 10 = always knew</span></span>
+      <div class="choices scale" role="radiogroup" aria-labelledby="lbl-understand">
+        <label><input type="radio" name="understanding_score" value="1"><span>1</span></label>
+        <label><input type="radio" name="understanding_score" value="2"><span>2</span></label>
+        <label><input type="radio" name="understanding_score" value="3"><span>3</span></label>
+        <label><input type="radio" name="understanding_score" value="4"><span>4</span></label>
+        <label><input type="radio" name="understanding_score" value="5"><span>5</span></label>
+        <label><input type="radio" name="understanding_score" value="6"><span>6</span></label>
+        <label><input type="radio" name="understanding_score" value="7"><span>7</span></label>
+        <label><input type="radio" name="understanding_score" value="8"><span>8</span></label>
+        <label><input type="radio" name="understanding_score" value="9"><span>9</span></label>
+        <label><input type="radio" name="understanding_score" value="10"><span>10</span></label>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal on" data-sec="Playing together">
+    <h2 class="sec-label" data-index="06">Playing together</h2>
+
+    <div class="q">
+      <label class="q-label" for="q-voice">Could you hear the others? How was the voice quality?</label>
+      <textarea id="q-voice" name="voice_quality"></textarea>
+    </div>
+
+    <div class="q">
+      <label class="q-label" for="q-voicefail">Did voice ever stop working — for you or for someone else? When, and what fixed it (if anything)?</label>
+      <textarea id="q-voicefail" name="voice_failures"></textarea>
+    </div>
+
+    <div class="q">
+      <label class="q-label" for="q-together">Did your group stay together or spread out? Did the game give you reasons to cooperate?</label>
+      <textarea id="q-together" name="cooperation"></textarea>
+    </div>
+
+    <div class="q">
+      <label class="q-label" for="q-bestmoment">Best moment with the group?</label>
+      <textarea id="q-bestmoment" name="best_group_moment"></textarea>
+    </div>
+  </section>
+
+  <section class="reveal on" data-sec="Fear and feel">
+    <h2 class="sec-label" data-index="07">Fear &amp; feel</h2>
+
+    <div class="q">
+      <label class="q-label" for="q-scariest">Scariest or tensest moment of your session?</label>
+      <textarea id="q-scariest" name="scariest_moment"></textarea>
+    </div>
+
+    <div class="q" data-label="The fear level was…">
+      <span class="q-label" id="lbl-fear">The fear level was…</span>
+      <div class="choices" role="radiogroup" aria-labelledby="lbl-fear">
+        <label><input type="radio" name="fear_level" value="too much"><span>too much</span></label>
+        <label><input type="radio" name="fear_level" value="about right"><span>about right</span></label>
+        <label><input type="radio" name="fear_level" value="not scary enough"><span>not scary enough</span></label>
+      </div>
+    </div>
+
+    <div class="q">
+      <label class="q-label" for="q-controls">How did the game feel to control — walking, doors, picking things up, menus? Anything clumsy or fighting you?</label>
+      <textarea id="q-controls" name="controls_feel"></textarea>
+    </div>
+
+    <div class="q" data-label="Atmosphere (1 = flat, 10 = under my skin)">
+      <span class="q-label" id="lbl-atmo">Atmosphere <span class="hint-inline">1 = flat, 10 = under my skin</span></span>
+      <div class="choices scale" role="radiogroup" aria-labelledby="lbl-atmo">
+        <label><input type="radio" name="atmosphere_score" value="1"><span>1</span></label>
+        <label><input type="radio" name="atmosphere_score" value="2"><span>2</span></label>
+        <label><input type="radio" name="atmosphere_score" value="3"><span>3</span></label>
+        <label><input type="radio" name="atmosphere_score" value="4"><span>4</span></label>
+        <label><input type="radio" name="atmosphere_score" value="5"><span>5</span></label>
+        <label><input type="radio" name="atmosphere_score" value="6"><span>6</span></label>
+        <label><input type="radio" name="atmosphere_score" value="7"><span>7</span></label>
+        <label><input type="radio" name="atmosphere_score" value="8"><span>8</span></label>
+        <label><input type="radio" name="atmosphere_score" value="9"><span>9</span></label>
+        <label><input type="radio" name="atmosphere_score" value="10"><span>10</span></label>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal on" data-sec="Performance and bugs">
+    <h2 class="sec-label" data-index="08">Performance &amp; bugs</h2>
+
+    <div class="q" data-label="How smooth did the game run?">
+      <span class="q-label" id="lbl-smooth">How smooth did the game run?</span>
+      <div class="choices" role="radiogroup" aria-labelledby="lbl-smooth">
+        <label><input type="radio" name="smoothness" value="smooth"><span>smooth</span></label>
+        <label><input type="radio" name="smoothness" value="mostly smooth"><span>mostly smooth</span></label>
+        <label><input type="radio" name="smoothness" value="choppy"><span>choppy</span></label>
+        <label><input type="radio" name="smoothness" value="unplayable at times"><span>unplayable at times</span></label>
+      </div>
+    </div>
+
+    <div class="q">
+      <label class="q-label" for="q-freezes">Freezes or stutters — when did they happen, and what was going on in the game?</label>
+      <textarea id="q-freezes" name="freezes"></textarea>
+    </div>
+
+    <div class="q">
+      <label class="q-label" for="q-crashes">Crashes: how many, and what were you doing right before each one?</label>
+      <textarea id="q-crashes" name="crashes"></textarea>
+      <span class="hint">rough clock times ("around 21:30") help me find the exact moment in your log</span>
+    </div>
+
+    <div class="q">
+      <label class="q-label" for="q-broken">Anything visibly broken — places you got stuck, floating objects, black screens, missing text, weird lighting?</label>
+      <textarea id="q-broken" name="visible_bugs"></textarea>
+    </div>
+  </section>
+
+  <section class="reveal on" data-sec="Verdict">
+    <h2 class="sec-label" data-index="09">Verdict</h2>
+
+    <div class="q" data-label="Fun (1 = chore, 10 = lost track of time)">
+      <span class="q-label" id="lbl-fun">Fun <span class="hint-inline">1 = chore, 10 = lost track of time</span></span>
+      <div class="choices scale" role="radiogroup" aria-labelledby="lbl-fun">
+        <label><input type="radio" name="fun_score" value="1"><span>1</span></label>
+        <label><input type="radio" name="fun_score" value="2"><span>2</span></label>
+        <label><input type="radio" name="fun_score" value="3"><span>3</span></label>
+        <label><input type="radio" name="fun_score" value="4"><span>4</span></label>
+        <label><input type="radio" name="fun_score" value="5"><span>5</span></label>
+        <label><input type="radio" name="fun_score" value="6"><span>6</span></label>
+        <label><input type="radio" name="fun_score" value="7"><span>7</span></label>
+        <label><input type="radio" name="fun_score" value="8"><span>8</span></label>
+        <label><input type="radio" name="fun_score" value="9"><span>9</span></label>
+        <label><input type="radio" name="fun_score" value="10"><span>10</span></label>
+      </div>
+    </div>
+
+    <div class="q" data-label="Would you play again?">
+      <span class="q-label" id="lbl-again">Would you play again?</span>
+      <div class="choices" role="radiogroup" aria-labelledby="lbl-again">
+        <label><input type="radio" name="play_again" value="yes"><span>yes</span></label>
+        <label><input type="radio" name="play_again" value="maybe"><span>maybe</span></label>
+        <label><input type="radio" name="play_again" value="no"><span>no</span></label>
+      </div>
+    </div>
+
+    <div class="q" data-label="Would you recommend it to a friend, as it is today?">
+      <span class="q-label" id="lbl-rec">Would you recommend it to a friend, as it is today?</span>
+      <div class="choices" role="radiogroup" aria-labelledby="lbl-rec">
+        <label><input type="radio" name="recommend" value="yes"><span>yes</span></label>
+        <label><input type="radio" name="recommend" value="maybe"><span>maybe</span></label>
+        <label><input type="radio" name="recommend" value="no"><span>no</span></label>
+      </div>
+    </div>
+
+    <div class="q">
+      <label class="q-label" for="q-fixfirst">If I can only fix ONE thing before the next test, what should it be?</label>
+      <textarea id="q-fixfirst" name="fix_first"></textarea>
+    </div>
+
+    <div class="q">
+      <label class="q-label" for="q-keep">What should NOT change?</label>
+      <textarea id="q-keep" name="do_not_change"></textarea>
+    </div>
+
+    <div class="q">
+      <label class="q-label" for="q-price">What would feel like a fair price for this game when it's finished?</label>
+      <input type="text" id="q-price" name="fair_price">
+    </div>
+
+    <div class="q">
+      <label class="q-label" for="q-recording">Did you record your screen or stream while playing? If yes — I would love the full video. Paste a link or just say so and I'll get in touch.</label>
+      <textarea id="q-recording" name="session_recording"></textarea>
+    </div>
+
+    <div class="q">
+      <label class="q-label" for="q-anything">Anything else — thoughts, feelings, theories, complaints, ideas?</label>
+      <textarea id="q-anything" name="anything_else"></textarea>
+    </div>
+  </section>
+
+  </form>
+
+  <section class="reveal on send-section">
+    <h2 class="sec-label" data-index="10">Send it to me</h2>
+
+    <h3 class="step-h">Step 1 — save your answers as a file</h3>
+    <p class="mono-note"><span id="answer-count"></span></p>
+    <div class="report-actions">
+      <button type="button" class="support-btn" id="btn-download">download my answers</button>
+      <button type="button" class="support-btn" id="btn-copy">copy to clipboard instead</button>
+    </div>
+    <p class="mono-note" id="action-status" aria-live="polite"></p>
+
+    <h3 class="step-h">Step 2 — zip up your game logs (the Saved folder)</h3>
+    <p>Your game wrote log and crash files while you played. They tell me exactly what went wrong on your machine — please send them along. It takes one minute:</p>
+    <ol class="steps">
+      <li>Open <strong>Steam</strong>. In your Library, right-click <strong>Better Together</strong> → <strong>Manage</strong> → <strong>Browse local files</strong>. A file window opens.</li>
+      <li>Inside it, open the folder called <strong>BetterTogether</strong>.</li>
+      <li>Right-click the <strong>Saved</strong> folder → <strong>Compress to ZIP file</strong> (Windows 11) or <strong>Send to → Compressed (zipped) folder</strong> (Windows 10).</li>
+      <li>A file called <strong>Saved.zip</strong> appears next to the folder. Rename it so I know it's yours — e.g. <strong>Saved_YourName.zip</strong>.</li>
+    </ol>
+    <p class="mono-note">can't find it? the usual full path is <code>C:\Program Files (x86)\Steam\steamapps\common\Better Together\BetterTogether\Saved</code></p>
+    <p class="mono-note">zip bigger than ~25 MB and your email refuses it? go inside Saved and zip only the <strong>Logs</strong> and <strong>Crashes</strong> folders instead — those are the important ones.</p>
+
+    <h3 class="step-h">Step 3 — email both files</h3>
+    <p>Attach your answers file (step 1) and your ZIP (step 2) to one email and send it to <a href="mailto:dromi@dromi.is">dromi@dromi.is</a>. The button below opens a ready-made email — you just add the two attachments.</p>
+    <div class="report-actions">
+      <a class="support-btn" id="btn-email" href="mailto:dromi@dromi.is">open email</a>
+    </div>
+
+    <p class="mono-note clear-row"><button type="button" id="btn-clear" class="linklike">clear all my answers and start over</button></p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="col">
+    <a href="mailto:dromi@dromi.is">dromi@dromi.is</a>
+    <span>&copy; 2026 Víbrur Games</span>
+    <a href="/privacy-policy/">privacy</a>
+  </div>
+  <div class="col">
+    <a data-social="instagram">instagram</a>
+    <a data-social="tiktok">tiktok</a>
+  </div>
+  <div class="col">
+    <span id="clock"></span>
+  </div>
+</footer>
+
+<script src="../site.js"></script>
+<script src="report.js"></script>
+</body>
+</html>
