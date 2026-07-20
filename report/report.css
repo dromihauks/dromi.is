@@ -73,6 +73,39 @@
   resize: vertical;
 }
 
+.q input[type="file"] {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid var(--line);
+  color: var(--dim);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  padding: 0.7rem 0.9rem;
+  cursor: pointer;
+}
+
+.q input[type="file"]::file-selector-button {
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  text-transform: lowercase;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--faint);
+  padding: 0.45rem 1rem;
+  margin-right: 1rem;
+  cursor: pointer;
+  transition: border-color 0.4s ease, background 0.4s ease;
+}
+
+.q input[type="file"]::file-selector-button:hover {
+  border-color: var(--ink);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.attach-over { color: #9c3b28 !important; }
+
 .q input[type="text"]:focus,
 .q textarea:focus {
   border-color: var(--ink);

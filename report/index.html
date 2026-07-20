@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formsubmit.co">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="robots" content="noindex">
 <title>Víbrur Games — Playtest Report</title>
@@ -39,17 +39,22 @@
     <h2 class="sec-label" data-index="00">Playtest report</h2>
     <p>You played <strong>Better Together</strong>. Thank you. Now tell me everything.</p>
     <p>Every question is optional except your name — skip anything, but the more you write, the more I can fix. There are no wrong answers; if you were confused, that is the game's fault, not yours, and exactly what I need to hear.</p>
-    <p class="mono-note">Nothing on this page uploads anywhere. Your answers save in this browser as you type; at the end you download them as a file and email it to me together with your game logs. Takes about 10–15 minutes.</p>
+    <p class="mono-note">When you hit <strong>Send</strong> at the bottom, your answers — and your log file, if you attach one — come straight to me. No account, no login. Your answers also autosave in this browser as you type, so you won't lose them if you get pulled away. Takes about 10–15 minutes.</p>
   </section>
 
-  <form id="report-form" autocomplete="off">
+  <form id="report-form" action="https://formsubmit.co/dromi@dromi.is" method="POST" enctype="multipart/form-data" autocomplete="off">
+    <input type="hidden" name="_subject" value="Better Together — playtest report">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_next" value="https://dromi.is/report/thanks.html">
+    <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
 
   <section class="reveal on" data-sec="Who you are">
     <h2 class="sec-label" data-index="01">Who you are</h2>
 
     <div class="q">
       <label class="q-label" for="q-name">Your name or nickname <span class="req">(required — so I can match you to your log files)</span></label>
-      <input type="text" id="q-name" name="name">
+      <input type="text" id="q-name" name="name" required>
     </div>
 
     <div class="q">
@@ -414,38 +419,32 @@
     </div>
   </section>
 
-  </form>
+  <section class="reveal on">
+    <h2 class="sec-label" data-index="10">Your logs — optional, but gold</h2>
+    <p>Your game wrote a log file while you played. It tells me exactly what went wrong on your machine, and attaching it is the single most useful thing you can do. It rides along with this form — no separate email:</p>
+    <ol class="steps">
+      <li>Click <strong>Choose file</strong> below.</li>
+      <li>In the window that opens, click the address bar at the top, paste this line, and press Enter:<br><code>C:\Program Files (x86)\Steam\steamapps\common\Better Together\BetterTogether\Saved\Logs</code></li>
+      <li>Pick <strong>BetterTogether.log</strong> (the newest one). Crashed? You can also add files from <code>...\Saved\Crashes</code>.</li>
+    </ol>
+    <div class="q">
+      <label class="q-label" for="q-attach">Attach your log file(s)</label>
+      <input type="file" id="q-attach" name="attachment" multiple accept=".log,.txt,.zip,.dmp,.gz,.json">
+      <span class="hint" id="attach-hint">up to 10 MB total. bigger than that? email it to dromi@dromi.is instead — the rest still sends.</span>
+    </div>
+  </section>
 
   <section class="reveal on send-section">
-    <h2 class="sec-label" data-index="10">Send it to me</h2>
-
-    <h3 class="step-h">Step 1 — save your answers as a file</h3>
+    <h2 class="sec-label" data-index="11">Send</h2>
     <p class="mono-note"><span id="answer-count"></span></p>
     <div class="report-actions">
-      <button type="button" class="support-btn" id="btn-download">download my answers</button>
-      <button type="button" class="support-btn" id="btn-copy">copy to clipboard instead</button>
+      <button type="submit" class="support-btn" id="btn-send">send my report</button>
     </div>
-    <p class="mono-note" id="action-status" aria-live="polite"></p>
-
-    <h3 class="step-h">Step 2 — zip up your game logs (the Saved folder)</h3>
-    <p>Your game wrote log and crash files while you played. They tell me exactly what went wrong on your machine — please send them along. It takes one minute:</p>
-    <ol class="steps">
-      <li>Open <strong>Steam</strong>. In your Library, right-click <strong>Better Together</strong> → <strong>Manage</strong> → <strong>Browse local files</strong>. A file window opens.</li>
-      <li>Inside it, open the folder called <strong>BetterTogether</strong>.</li>
-      <li>Right-click the <strong>Saved</strong> folder → <strong>Compress to ZIP file</strong> (Windows 11) or <strong>Send to → Compressed (zipped) folder</strong> (Windows 10).</li>
-      <li>A file called <strong>Saved.zip</strong> appears next to the folder. Rename it so I know it's yours — e.g. <strong>Saved_YourName.zip</strong>.</li>
-    </ol>
-    <p class="mono-note">can't find it? the usual full path is <code>C:\Program Files (x86)\Steam\steamapps\common\Better Together\BetterTogether\Saved</code></p>
-    <p class="mono-note">zip bigger than ~25 MB and your email refuses it? go inside Saved and zip only the <strong>Logs</strong> and <strong>Crashes</strong> folders instead — those are the important ones.</p>
-
-    <h3 class="step-h">Step 3 — email both files</h3>
-    <p>Attach your answers file (step 1) and your ZIP (step 2) to one email and send it to <a href="mailto:dromi@dromi.is">dromi@dromi.is</a>. The button below opens a ready-made email — you just add the two attachments.</p>
-    <div class="report-actions">
-      <a class="support-btn" id="btn-email" href="mailto:dromi@dromi.is">open email</a>
-    </div>
-
+    <p class="mono-note" id="send-status" aria-live="polite">one click and it comes straight to me — answers and log together.</p>
     <p class="mono-note clear-row"><button type="button" id="btn-clear" class="linklike">clear all my answers and start over</button></p>
   </section>
+
+  </form>
 
 </main>
 
