@@ -16,6 +16,7 @@
   var form = document.getElementById("report-form");
   var countEl = document.getElementById("answer-count");
   var btnClear = document.getElementById("btn-clear");
+  var btnDownload = document.getElementById("btn-download");
   var fileInput = document.getElementById("q-attach");
   var attachHint = document.getElementById("attach-hint");
   var sendStatus = document.getElementById("send-status");
@@ -108,6 +109,79 @@
     return true;
   }
 
+  /* ---- download answers as .txt ------------------------------
+     Escape hatch: the form POSTs to a third-party relay we get no
+     delivery confirmation from. This lets a tester keep a copy of
+     their own answers and send it any way they like. Reads the live
+     DOM (not localStorage) so it matches what's on screen. */
+
+  function labelFor(q) {
+    var el = q.querySelector(".q-label");
+    if (!el) return q.getAttribute("data-label") || "(question)";
+    var clone = el.cloneNode(true);
+    // drop the "(required — …)" and inline scale hints from the label
+    clone.querySelectorAll(".req, .hint-inline").forEach(function (n) {
+      n.parentNode.removeChild(n);
+    });
+    return clone.textContent.replace(/\s+/g, " ").trim();
+  }
+
+  function answerFor(q) {
+    var checked = q.querySelector("input[type=radio]:checked");
+    if (checked) return checked.value;
+    var field = q.querySelector("input[type=text], textarea");
+    if (field && field.value.trim() !== "") return field.value.trim();
+    return "";
+  }
+
+  function buildReportText() {
+    var nameField = document.getElementById("q-name");
+    var name = nameField ? nameField.value.trim() : "";
+    var lines = ["BETTER TOGETHER — PLAYTEST REPORT"];
+    if (name) lines.push("From: " + name);
+    lines.push("Saved: " + new Date().toString());
+
+    document.querySelectorAll("main section[data-sec]").forEach(function (sec) {
+      var block = [];
+      sec.querySelectorAll(".q").forEach(function (q) {
+        var answer = answerFor(q);
+        if (!answer) return; // skipped questions stay out of the file
+        block.push(labelFor(q));
+        block.push("    " + answer.replace(/\r?\n/g, "\r\n    "));
+        block.push("");
+      });
+      if (!block.length) return;
+      lines.push("", "== " + sec.getAttribute("data-sec").toUpperCase() + " ==", "");
+      lines = lines.concat(block);
+    });
+
+    if (totalFileBytes() > 0) {
+      lines.push("", "(Log files can't ride along in a .txt — send them separately.)");
+    }
+    return lines.join("\r\n");
+  }
+
+  function downloadReport() {
+    var nameField = document.getElementById("q-name");
+    var slug = (nameField ? nameField.value.trim() : "")
+      .toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    var d = new Date();
+    var stamp = d.getFullYear() + "-" +
+      ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2);
+
+    // ﻿ so Windows Notepad reads the accented characters correctly
+    var blob = new Blob(["﻿" + buildReportText()],
+      { type: "text/plain;charset=utf-8" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = "bt-playtest-report" + (slug ? "-" + slug : "") + "-" + stamp + ".txt";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  }
+
   /* ---- wiring ----------------------------------------------- */
 
   form.addEventListener("input", function () { save(); updateCount(); });
@@ -130,6 +204,15 @@
     // safety net in case the network hiccups (cleared via the clear button).
     if (sendStatus) sendStatus.textContent = "sending…";
   });
+
+  if (btnDownload) {
+    btnDownload.addEventListener("click", function () {
+      downloadReport();
+      if (sendStatus) {
+        sendStatus.textContent = "saved a .txt copy of your answers to your downloads folder.";
+      }
+    });
+  }
 
   if (btnClear) {
     btnClear.addEventListener("click", function () {
