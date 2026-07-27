@@ -32,27 +32,32 @@
   </div>
 </nav>
 
+<button type="button" id="progress-pill" class="progress-pill" title="jump to the send button">
+  <span class="pp-track" aria-hidden="true"><span class="pp-fill" id="pp-fill"></span></span>
+  <span id="pp-text">0 answered</span>
+</button>
+
 <main class="page report">
   <h1 class="visually-hidden">Víbrur Games — Playtest Report</h1>
 
   <section class="reveal on">
     <h2 class="sec-label" data-index="00">Playtest report</h2>
     <p>You played <strong>Better Together</strong>. Thank you. Now tell me everything.</p>
-    <p>Every question is optional except your name and the build number — skip anything, but the more you write, the more I can fix. There are no wrong answers; if you were confused, that is the game's fault, not yours, and exactly what I need to hear. Answer in <strong>Icelandic or English</strong>, whichever is faster for you.</p>
-    <p>One thing that matters more than length: <strong>write about the session you just played</strong>. Not last week's session, not a bug you already told me about. I fix things every few days, and if I can't tell which build a problem came from, I can't tell whether it's still broken.</p>
-    <p class="mono-note">When you hit <strong>Send</strong> at the bottom, your answers — and your log file, if you attach one — come straight to me. No account, no login. Your answers also autosave in this browser as you type, so you won't lose them if you get pulled away. Takes about 8 minutes.</p>
+    <p>Most of this form is <strong>tap-what's-true</strong> — type only where you have something to say. Every question is optional except your name and the build number. There are no wrong answers; if you were confused, that is the game's fault, not yours, and exactly what I need to hear. Answer in <strong>Icelandic or English</strong>, whichever is faster.</p>
+    <p class="mono-note">about 5 minutes if you mostly tap. answers autosave in this browser as you type, and everything — including your log file, if you attach one — comes straight to me when you hit <strong>send</strong>. no account, no login. one ask: write about the session you <em>just</em> played, not last week's.</p>
   </section>
 
   <form id="report-form" action="https://formsubmit.co/dromi@dromi.is" method="POST" enctype="multipart/form-data" autocomplete="off">
-    <input type="hidden" name="_subject" value="Better Together — playtest report">
+    <input type="hidden" id="subject-field" name="_subject" value="Better Together — playtest report">
     <input type="hidden" name="_template" value="table">
     <input type="hidden" name="_captcha" value="false">
     <input type="hidden" name="_next" value="https://dromi.is/report/thanks.html">
     <input type="hidden" id="full-report" name="Full report">
+    <input type="hidden" id="browser-context" name="Filled in from">
     <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" class="honey">
 
   <section class="reveal on" data-sec="Your session">
-    <h2 class="sec-label" data-index="01">Your session</h2>
+    <h2 class="sec-label" data-index="01">Your session <span class="sec-time">~1 min</span></h2>
 
     <div class="q">
       <label class="q-label" for="q-name">Your name or nickname <span class="req">(required — so I can match you to your log files)</span></label>
@@ -72,6 +77,15 @@
       <span class="hint">a date and a rough clock time let me find your session in the log — e.g. "July 19, started around 20:00, about 2 hours"</span>
     </div>
 
+    <div class="q" data-label="Which machine did you play on?">
+      <span class="q-label" id="lbl-platform">Which machine did you play on?</span>
+      <div class="choices" role="radiogroup" aria-labelledby="lbl-platform">
+        <label><input type="radio" name="platform" value="Windows PC"><span>windows pc</span></label>
+        <label><input type="radio" name="platform" value="Mac"><span>mac</span></label>
+        <label><input type="radio" name="platform" value="not sure"><span>not sure</span></label>
+      </div>
+    </div>
+
     <div class="q" data-label="Did you host the game or join someone else's?">
       <span class="q-label" id="lbl-host">Did you host the game or join someone else's?</span>
       <div class="choices" role="radiogroup" aria-labelledby="lbl-host">
@@ -82,9 +96,25 @@
       </div>
     </div>
 
-    <div class="q">
-      <label class="q-label" for="q-group">How many of you were playing? Did you know any of them beforehand?</label>
-      <input type="text" id="q-group" name="group_size">
+    <div class="q" data-label="How many of you were playing?">
+      <span class="q-label" id="lbl-group">How many of you were playing?</span>
+      <div class="choices" role="radiogroup" aria-labelledby="lbl-group">
+        <label><input type="radio" name="group_size" value="solo"><span>solo</span></label>
+        <label><input type="radio" name="group_size" value="2"><span>2</span></label>
+        <label><input type="radio" name="group_size" value="3"><span>3</span></label>
+        <label><input type="radio" name="group_size" value="4"><span>4</span></label>
+        <label><input type="radio" name="group_size" value="5"><span>5</span></label>
+        <label><input type="radio" name="group_size" value="6"><span>6</span></label>
+      </div>
+    </div>
+
+    <div class="q" data-label="Did you know the others beforehand?" data-show-when="group_size=2|3|4|5|6">
+      <span class="q-label" id="lbl-knew">Did you know the others beforehand?</span>
+      <div class="choices" role="radiogroup" aria-labelledby="lbl-knew">
+        <label><input type="radio" name="knew_others" value="knew everyone"><span>knew everyone</span></label>
+        <label><input type="radio" name="knew_others" value="knew some of them"><span>knew some</span></label>
+        <label><input type="radio" name="knew_others" value="strangers"><span>strangers</span></label>
+      </div>
     </div>
 
     <div class="q" data-label="Had you played Better Together before this session?">
@@ -142,33 +172,37 @@
   </section>
 
   <section class="reveal on" data-sec="Getting in">
-    <h2 class="sec-label" data-index="02">Getting in</h2>
+    <h2 class="sec-label" data-index="02">Getting in <span class="sec-time">~30 sec</span></h2>
 
-    <div class="q">
-      <label class="q-label" for="q-getin">Did anything go wrong between launching the game and actually playing — installing, updating, hosting, joining? What did you see on screen?</label>
-      <textarea id="q-getin" name="getting_in_trouble"></textarea>
-      <span class="hint">the exact words of any error message are gold, even half-remembered. "nothing went wrong" is a great answer too.</span>
+    <div class="q" data-label="Getting into the game — installing, updating, hosting, joining — went…">
+      <span class="q-label" id="lbl-getin">Getting into the game — installing, updating, hosting, joining — went…</span>
+      <div class="choices" role="radiogroup" aria-labelledby="lbl-getin">
+        <label><input type="radio" name="getting_in" value="smoothly"><span>smoothly</span></label>
+        <label><input type="radio" name="getting_in" value="mostly fine"><span>mostly fine</span></label>
+        <label><input type="radio" name="getting_in" value="something went wrong"><span>something went wrong</span></label>
+      </div>
     </div>
 
-    <div class="q" data-label="How easy was it to get from launching the game to playing with your group? (1 = fought it, 10 = effortless)">
-      <span class="q-label" id="lbl-easyjoin">How easy was it to get from launching the game to playing with your group? <span class="hint-inline">1 = fought it, 10 = effortless</span></span>
+    <div class="q" data-show-when="getting_in=mostly fine|something went wrong">
+      <label class="q-label" for="q-getin">What went wrong, and what did you see on screen?</label>
+      <textarea id="q-getin" name="getting_in_trouble"></textarea>
+      <span class="hint">the exact words of any error message are gold, even half-remembered</span>
+    </div>
+
+    <div class="q" data-label="From launching to actually playing felt… (1 = fought it, 5 = effortless)">
+      <span class="q-label" id="lbl-easyjoin">From launching to actually playing with your group felt… <span class="hint-inline">1 = fought it, 5 = effortless</span></span>
       <div class="choices scale" role="radiogroup" aria-labelledby="lbl-easyjoin">
         <label><input type="radio" name="ease_of_joining" value="1"><span>1</span></label>
         <label><input type="radio" name="ease_of_joining" value="2"><span>2</span></label>
         <label><input type="radio" name="ease_of_joining" value="3"><span>3</span></label>
         <label><input type="radio" name="ease_of_joining" value="4"><span>4</span></label>
         <label><input type="radio" name="ease_of_joining" value="5"><span>5</span></label>
-        <label><input type="radio" name="ease_of_joining" value="6"><span>6</span></label>
-        <label><input type="radio" name="ease_of_joining" value="7"><span>7</span></label>
-        <label><input type="radio" name="ease_of_joining" value="8"><span>8</span></label>
-        <label><input type="radio" name="ease_of_joining" value="9"><span>9</span></label>
-        <label><input type="radio" name="ease_of_joining" value="10"><span>10</span></label>
       </div>
     </div>
   </section>
 
   <section class="reveal on" data-sec="Finding your feet">
-    <h2 class="sec-label" data-index="03">Finding your feet</h2>
+    <h2 class="sec-label" data-index="03">Finding your feet <span class="sec-time">~1 min</span></h2>
 
     <div class="q">
       <label class="q-label" for="q-goal">In your own words — what is this game asking you to do?</label>
@@ -182,34 +216,60 @@
       <span class="hint">a button, a key, where something is, what something was for — anything the game should have told you itself</span>
     </div>
 
-    <div class="q">
-      <label class="q-label" for="q-lost">Was there a stretch where you had nothing to do? When did it start, and roughly how long did it last?</label>
-      <textarea id="q-lost" name="dead_time"></textarea>
+    <div class="q" data-label="Was there ever a stretch with nothing to do?">
+      <span class="q-label" id="lbl-deadtime">Was there ever a stretch with nothing to do?</span>
+      <div class="choices" role="radiogroup" aria-labelledby="lbl-deadtime">
+        <label><input type="radio" name="dead_time" value="never"><span>never</span></label>
+        <label><input type="radio" name="dead_time" value="once or twice"><span>once or twice</span></label>
+        <label><input type="radio" name="dead_time" value="a lot of the session"><span>a lot of the session</span></label>
+      </div>
     </div>
 
-    <div class="q" data-label="How well did you understand what to do, overall? (1 = no idea the whole time, 10 = always knew)">
-      <span class="q-label" id="lbl-understand">How well did you understand what to do, overall? <span class="hint-inline">1 = no idea the whole time, 10 = always knew</span></span>
+    <div class="q" data-show-when="dead_time=once or twice|a lot of the session">
+      <label class="q-label" for="q-lost">When was that, and what were you waiting on?</label>
+      <textarea id="q-lost" name="dead_time_detail"></textarea>
+    </div>
+
+    <div class="q" data-label="How well did you understand what to do? (1 = no idea the whole time, 5 = always knew)">
+      <span class="q-label" id="lbl-understand">How well did you understand what to do, overall? <span class="hint-inline">1 = no idea the whole time, 5 = always knew</span></span>
       <div class="choices scale" role="radiogroup" aria-labelledby="lbl-understand">
         <label><input type="radio" name="understanding_score" value="1"><span>1</span></label>
         <label><input type="radio" name="understanding_score" value="2"><span>2</span></label>
         <label><input type="radio" name="understanding_score" value="3"><span>3</span></label>
         <label><input type="radio" name="understanding_score" value="4"><span>4</span></label>
         <label><input type="radio" name="understanding_score" value="5"><span>5</span></label>
-        <label><input type="radio" name="understanding_score" value="6"><span>6</span></label>
-        <label><input type="radio" name="understanding_score" value="7"><span>7</span></label>
-        <label><input type="radio" name="understanding_score" value="8"><span>8</span></label>
-        <label><input type="radio" name="understanding_score" value="9"><span>9</span></label>
-        <label><input type="radio" name="understanding_score" value="10"><span>10</span></label>
       </div>
     </div>
   </section>
 
   <section class="reveal on" data-sec="The day, the money, the night">
-    <h2 class="sec-label" data-index="04">The day, the money, the night</h2>
+    <h2 class="sec-label" data-index="04">The day, the money, the night <span class="sec-time">~1 min</span></h2>
 
-    <div class="q">
-      <label class="q-label" for="q-chores">Chores and money — what did you do, and did it feel worth doing?</label>
-      <textarea id="q-chores" name="chores_and_money"></textarea>
+    <div class="q" data-label="What day did you reach this session?">
+      <span class="q-label" id="lbl-day">What day did you reach this session?</span>
+      <div class="choices" role="radiogroup" aria-labelledby="lbl-day">
+        <label><input type="radio" name="day_reached" value="day 1"><span>day 1</span></label>
+        <label><input type="radio" name="day_reached" value="day 2"><span>day 2</span></label>
+        <label><input type="radio" name="day_reached" value="day 3"><span>day 3</span></label>
+        <label><input type="radio" name="day_reached" value="day 4"><span>day 4</span></label>
+        <label><input type="radio" name="day_reached" value="day 5"><span>day 5</span></label>
+        <label><input type="radio" name="day_reached" value="day 6"><span>day 6</span></label>
+        <label><input type="radio" name="day_reached" value="day 7"><span>day 7</span></label>
+        <label><input type="radio" name="day_reached" value="day 8 or later"><span>day 8+</span></label>
+        <label><input type="radio" name="day_reached" value="not sure"><span>not sure</span></label>
+      </div>
+      <span class="hint">the day you ended on — if you continued from an earlier save, that still counts</span>
+    </div>
+
+    <div class="q" data-label="The chores — worth doing?">
+      <span class="q-label" id="lbl-chores">The chores — worth doing?</span>
+      <div class="choices" role="radiogroup" aria-labelledby="lbl-chores">
+        <label><input type="radio" name="chores_feel" value="worth it"><span>worth it</span></label>
+        <label><input type="radio" name="chores_feel" value="fine, a bit repetitive"><span>fine, a bit repetitive</span></label>
+        <label><input type="radio" name="chores_feel" value="busywork"><span>busywork</span></label>
+        <label><input type="radio" name="chores_feel" value="didn't understand them"><span>didn't understand them</span></label>
+        <label><input type="radio" name="chores_feel" value="didn't do them"><span>didn't do them</span></label>
+      </div>
     </div>
 
     <div class="q">
@@ -218,23 +278,58 @@
       <span class="hint">list them one by one if you can. "bought the tripwire, couldn't place it anywhere" is worth more to me than anything else on this page.</span>
     </div>
 
-    <div class="q">
-      <label class="q-label" for="q-night">What did you do when it got dark — and when did you first feel like you were in danger?</label>
-      <textarea id="q-night" name="night_and_danger"></textarea>
+    <div class="q" data-label="How did the session end?">
+      <span class="q-label" id="lbl-ended">How did the session end?</span>
+      <div class="choices" role="radiogroup" aria-labelledby="lbl-ended">
+        <label><input type="radio" name="session_end" value="we stopped on purpose"><span>we stopped on purpose</span></label>
+        <label><input type="radio" name="session_end" value="a bug or crash ended it"><span>a bug or crash ended it</span></label>
+        <label><input type="radio" name="session_end" value="I'd had enough"><span>I'd had enough</span></label>
+        <label><input type="radio" name="session_end" value="ran out of time"><span>ran out of time</span></label>
+        <label><input type="radio" name="session_end" value="not sure"><span>not sure</span></label>
+      </div>
+    </div>
+
+    <div class="q" data-show-when="session_end=a bug or crash ended it|I'd had enough">
+      <label class="q-label" for="q-endwhat">What happened right at the end?</label>
+      <textarea id="q-endwhat" name="session_end_detail"></textarea>
     </div>
   </section>
 
-  <section class="reveal on" data-sec="Playing together">
-    <h2 class="sec-label" data-index="05">Playing together</h2>
+  <p class="mono-note milestone">halfway — and even a half-filled report is worth sending. the send button works from anywhere.</p>
 
-    <div class="q">
-      <label class="q-label" for="q-voice">Voice — could you hear everyone? Did it ever drop out, and what fixed it?</label>
-      <textarea id="q-voice" name="voice"></textarea>
+  <section class="reveal on" data-sec="Playing together">
+    <h2 class="sec-label" data-index="05">Playing together <span class="sec-time">~45 sec</span></h2>
+
+    <div class="q" data-label="Voice chat…">
+      <span class="q-label" id="lbl-voice">Voice chat…</span>
+      <div class="choices" role="radiogroup" aria-labelledby="lbl-voice">
+        <label><input type="radio" name="voice_status" value="worked the whole time"><span>worked the whole time</span></label>
+        <label><input type="radio" name="voice_status" value="choppy or robotic at times"><span>choppy or robotic at times</span></label>
+        <label><input type="radio" name="voice_status" value="someone couldn't hear or talk"><span>someone couldn't hear or talk</span></label>
+        <label><input type="radio" name="voice_status" value="didn't work at all"><span>didn't work at all</span></label>
+        <label><input type="radio" name="voice_status" value="we didn't use it"><span>we didn't use it</span></label>
+      </div>
+    </div>
+
+    <div class="q" data-show-when="voice_status=choppy or robotic at times|someone couldn't hear or talk|didn't work at all">
+      <label class="q-label" for="q-voice">Who had the problem, and did anything fix it?</label>
+      <textarea id="q-voice" name="voice_detail"></textarea>
+      <span class="hint">"X couldn't hear Y after we died once" — that shape of sentence is exactly what I need. rejoining, restarting, changing a setting — tell me what fixed it, if anything did.</span>
     </div>
 
     <div class="q">
-      <label class="q-label" for="q-together">Did you stay together or split up? Why?</label>
-      <textarea id="q-together" name="together_or_split"></textarea>
+      <label class="q-label" for="q-desync">Did the game ever disagree with itself — a door open for one of you but closed for another, an item only one player could see, someone walking in place?</label>
+      <textarea id="q-desync" name="desyncs"></textarea>
+      <span class="hint">sounds impossible, happens constantly. anything like this you noticed, however small.</span>
+    </div>
+
+    <div class="q" data-label="Did you stay together or split up?">
+      <span class="q-label" id="lbl-together">Did you stay together or split up?</span>
+      <div class="choices" role="radiogroup" aria-labelledby="lbl-together">
+        <label><input type="radio" name="together_or_split" value="stayed together"><span>stayed together</span></label>
+        <label><input type="radio" name="together_or_split" value="split up"><span>split up</span></label>
+        <label><input type="radio" name="together_or_split" value="a bit of both"><span>a bit of both</span></label>
+      </div>
     </div>
 
     <div class="q">
@@ -244,11 +339,12 @@
   </section>
 
   <section class="reveal on" data-sec="Fear and feel">
-    <h2 class="sec-label" data-index="06">Fear &amp; feel</h2>
+    <h2 class="sec-label" data-index="06">Fear &amp; feel <span class="sec-time">~45 sec</span></h2>
 
     <div class="q">
       <label class="q-label" for="q-scariest">Scariest or tensest moment of this session?</label>
       <textarea id="q-scariest" name="scariest_moment"></textarea>
+      <span class="hint">and when did the night first start to feel dangerous — or did it never?</span>
     </div>
 
     <div class="q" data-label="The fear level was…">
@@ -260,45 +356,56 @@
       </div>
     </div>
 
-    <div class="q">
-      <label class="q-label" for="q-controls">How did the game feel to control — walking, doors, picking things up, menus? Anything clumsy or fighting you?</label>
-      <textarea id="q-controls" name="controls_feel"></textarea>
+    <div class="q" data-label="Controls overall felt…">
+      <span class="q-label" id="lbl-controls">Controls overall felt…</span>
+      <div class="choices" role="radiogroup" aria-labelledby="lbl-controls">
+        <label><input type="radio" name="controls_feel" value="natural"><span>natural</span></label>
+        <label><input type="radio" name="controls_feel" value="fine"><span>fine</span></label>
+        <label><input type="radio" name="controls_feel" value="clumsy"><span>clumsy</span></label>
+        <label><input type="radio" name="controls_feel" value="like they were fighting me"><span>like they were fighting me</span></label>
+      </div>
     </div>
 
-    <div class="q" data-label="Atmosphere (1 = flat, 10 = under my skin)">
-      <span class="q-label" id="lbl-atmo">Atmosphere <span class="hint-inline">1 = flat, 10 = under my skin</span></span>
+    <div class="q">
+      <label class="q-label" for="q-controls">Anything specific that felt clumsy — walking, doors, picking things up, menus?</label>
+      <textarea id="q-controls" name="controls_detail"></textarea>
+    </div>
+
+    <div class="q" data-label="Atmosphere (1 = flat, 5 = under my skin)">
+      <span class="q-label" id="lbl-atmo">Atmosphere <span class="hint-inline">1 = flat, 5 = under my skin</span></span>
       <div class="choices scale" role="radiogroup" aria-labelledby="lbl-atmo">
         <label><input type="radio" name="atmosphere_score" value="1"><span>1</span></label>
         <label><input type="radio" name="atmosphere_score" value="2"><span>2</span></label>
         <label><input type="radio" name="atmosphere_score" value="3"><span>3</span></label>
         <label><input type="radio" name="atmosphere_score" value="4"><span>4</span></label>
         <label><input type="radio" name="atmosphere_score" value="5"><span>5</span></label>
-        <label><input type="radio" name="atmosphere_score" value="6"><span>6</span></label>
-        <label><input type="radio" name="atmosphere_score" value="7"><span>7</span></label>
-        <label><input type="radio" name="atmosphere_score" value="8"><span>8</span></label>
-        <label><input type="radio" name="atmosphere_score" value="9"><span>9</span></label>
-        <label><input type="radio" name="atmosphere_score" value="10"><span>10</span></label>
       </div>
     </div>
   </section>
 
-  <section class="reveal on" data-sec="Bugs and performance">
-    <h2 class="sec-label" data-index="07">Bugs &amp; performance</h2>
+  <section class="reveal on" data-sec="What broke">
+    <h2 class="sec-label" data-index="07">What broke <span class="sec-time">~1 min</span></h2>
 
     <div class="callout">
-      <p class="mono-note">This session only, please. If something has been broken for weeks, or you already sent it to me, leave it out — otherwise I can't tell what's still broken and what I've already fixed.</p>
+      <p class="mono-note">this session only, please — if it's been broken for weeks, or you already sent it to me, leave it out. that's how I tell what's still broken from what I've already fixed.</p>
     </div>
 
-    <div class="q">
-      <label class="q-label" for="q-stuck">Did you ever get stuck, frozen out of the controls, or have to restart the game to keep playing? What were you doing when it happened?</label>
-      <textarea id="q-stuck" name="softlocks"></textarea>
-      <span class="hint">menus, studies, the shop, doors — anywhere the game stopped taking your input</span>
-    </div>
-
-    <div class="q">
-      <label class="q-label" for="q-progress">Did you lose any progress — money, chores, items, a whole day? When?</label>
-      <textarea id="q-progress" name="lost_progress"></textarea>
-      <span class="hint">please tell me even if it felt normal, or like your own fault. it is neither.</span>
+    <div class="q" data-label="Tick anything that happened this session:">
+      <span class="q-label" id="lbl-broke">Tick anything that happened this session:</span>
+      <div class="choices ticks" role="group" aria-labelledby="lbl-broke">
+        <label><input type="checkbox" name="what_broke" value="the game crashed"><span>the game crashed</span></label>
+        <label><input type="checkbox" name="what_broke" value="someone couldn't join, or got disconnected"><span>couldn't join / disconnected</span></label>
+        <label><input type="checkbox" name="what_broke" value="voice chat broke"><span>voice chat broke</span></label>
+        <label><input type="checkbox" name="what_broke" value="got stuck somewhere and couldn't get out"><span>got stuck somewhere</span></label>
+        <label><input type="checkbox" name="what_broke" value="the controls or mouse stopped responding"><span>controls stopped responding</span></label>
+        <label><input type="checkbox" name="what_broke" value="black screen, or stuck loading"><span>black screen / stuck loading</span></label>
+        <label><input type="checkbox" name="what_broke" value="the game froze or stuttered badly"><span>froze or stuttered badly</span></label>
+        <label><input type="checkbox" name="what_broke" value="saving or continuing didn't work right"><span>save / continue went wrong</span></label>
+        <label><input type="checkbox" name="what_broke" value="an item vanished or wouldn't work"><span>an item vanished / wouldn't work</span></label>
+        <label><input type="checkbox" name="what_broke" value="something looked wrong — text, HUD, lighting, floating objects"><span>something looked wrong</span></label>
+        <label><input type="checkbox" name="what_broke" value="sound was wrong — missing, too loud, or wouldn't stop"><span>sound was wrong</span></label>
+        <label><input type="checkbox" name="what_broke" value="none of these"><span>none of these</span></label>
+      </div>
     </div>
 
     <div class="q" data-label="How smooth did the game run?">
@@ -312,33 +419,23 @@
     </div>
 
     <div class="q">
-      <label class="q-label" for="q-freezes">Freezes, stutters, or crashes — when did they happen, and what was going on in the game?</label>
-      <textarea id="q-freezes" name="freezes_and_crashes"></textarea>
-      <span class="hint">rough clock times ("around 21:30") help me find the exact moment in your log</span>
-    </div>
-
-    <div class="q">
-      <label class="q-label" for="q-broken">Anything visibly broken — spots you got stuck on, floating or missing objects, missing text, weird lighting?</label>
-      <textarea id="q-broken" name="visible_bugs"></textarea>
+      <label class="q-label" for="q-brokedetail">For anything you ticked — what were you doing, and roughly when?</label>
+      <textarea id="q-brokedetail" name="what_broke_detail"></textarea>
+      <span class="hint">rough clock times ("around 21:30") help me find the exact moment in your log. anything else you noticed — stuck spots, floating objects, missing text, weird lighting — goes here too.</span>
     </div>
   </section>
 
   <section class="reveal on" data-sec="Verdict">
-    <h2 class="sec-label" data-index="08">Verdict</h2>
+    <h2 class="sec-label" data-index="08">Verdict <span class="sec-time">~1 min</span></h2>
 
-    <div class="q" data-label="Fun (1 = chore, 10 = lost track of time)">
-      <span class="q-label" id="lbl-fun">Fun <span class="hint-inline">1 = chore, 10 = lost track of time</span></span>
+    <div class="q" data-label="Fun (1 = a chore, 5 = lost track of time)">
+      <span class="q-label" id="lbl-fun">Fun <span class="hint-inline">1 = a chore, 5 = lost track of time</span></span>
       <div class="choices scale" role="radiogroup" aria-labelledby="lbl-fun">
         <label><input type="radio" name="fun_score" value="1"><span>1</span></label>
         <label><input type="radio" name="fun_score" value="2"><span>2</span></label>
         <label><input type="radio" name="fun_score" value="3"><span>3</span></label>
         <label><input type="radio" name="fun_score" value="4"><span>4</span></label>
         <label><input type="radio" name="fun_score" value="5"><span>5</span></label>
-        <label><input type="radio" name="fun_score" value="6"><span>6</span></label>
-        <label><input type="radio" name="fun_score" value="7"><span>7</span></label>
-        <label><input type="radio" name="fun_score" value="8"><span>8</span></label>
-        <label><input type="radio" name="fun_score" value="9"><span>9</span></label>
-        <label><input type="radio" name="fun_score" value="10"><span>10</span></label>
       </div>
     </div>
 
@@ -358,6 +455,18 @@
         <label><input type="radio" name="recommend" value="maybe"><span>maybe</span></label>
         <label><input type="radio" name="recommend" value="no"><span>no</span></label>
       </div>
+    </div>
+
+    <div class="q" data-label="If it hit Early Access tomorrow, a fair price would be…">
+      <span class="q-label" id="lbl-price">If it hit Early Access tomorrow, a fair price would be…</span>
+      <div class="choices" role="radiogroup" aria-labelledby="lbl-price">
+        <label><input type="radio" name="fair_price" value="I wouldn't buy it yet"><span>I wouldn't buy it yet</span></label>
+        <label><input type="radio" name="fair_price" value="under €10"><span>under €10</span></label>
+        <label><input type="radio" name="fair_price" value="€10–15"><span>€10–15</span></label>
+        <label><input type="radio" name="fair_price" value="€15–20"><span>€15–20</span></label>
+        <label><input type="radio" name="fair_price" value="over €20"><span>over €20</span></label>
+      </div>
+      <span class="hint">honest answers only — you cannot hurt my feelings with this one</span>
     </div>
 
     <div class="q">
@@ -382,7 +491,7 @@
   </section>
 
   <section class="reveal on">
-    <h2 class="sec-label" data-index="09">Your logs — optional, but gold</h2>
+    <h2 class="sec-label" data-index="09">Your logs — optional, but gold <span class="sec-time">~30 sec</span></h2>
     <p>Your game wrote a log file while you played. It tells me exactly what went wrong on your machine, and attaching it is the single most useful thing you can do. It rides along with this form — no separate email:</p>
     <ol class="steps">
       <li>Click <strong>Choose file</strong> below.</li>
@@ -391,8 +500,8 @@
     </ol>
     <div class="q">
       <label class="q-label" for="q-attach">Attach your log file(s)</label>
-      <input type="file" id="q-attach" name="attachment" multiple accept=".log,.txt,.zip,.dmp,.gz,.json">
-      <span class="hint" id="attach-hint">up to 10 MB total. bigger than that? email it to dromi@dromi.is instead — the rest still sends.</span>
+      <input type="file" id="q-attach" name="attachment" multiple accept=".log,.txt,.zip,.dmp,.gz,.json,.png,.jpg,.jpeg,.webp">
+      <span class="hint" id="attach-hint">screenshots of bugs are welcome here too. up to 10 MB total — bigger than that? email it to dromi@dromi.is instead; the rest still sends.</span>
     </div>
   </section>
 
@@ -404,6 +513,7 @@
       <button type="button" class="support-btn" id="btn-download">download my answers as a .txt</button>
     </div>
     <p class="mono-note" id="send-status" aria-live="polite">one click and it comes straight to me — answers and log together.</p>
+    <p class="mono-note">the report also notes which browser and screen it was filled in on — nothing else.</p>
     <p class="mono-note clear-row"><button type="button" id="btn-clear" class="linklike">clear all my answers and start over</button></p>
   </section>
 
