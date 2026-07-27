@@ -112,6 +112,47 @@
   background: rgba(255, 255, 255, 0.55);
 }
 
+/* ---- sub-questions ----
+   Several related answers inside one .q, so a block like "your setup"
+   reads as a single question instead of five. */
+
+.subq { margin: 0 0 1.15rem; }
+.subq:last-child { margin-bottom: 0; }
+
+.subq-label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: lowercase;
+  color: var(--faint);
+  margin: 0 0 0.45rem;
+}
+
+/* ---- callout ---- */
+
+.callout {
+  border-left: 1px solid var(--faint);
+  padding-left: 1.1rem;
+  margin: 0 0 2.4rem;
+}
+
+.report .callout .mono-note { margin: 0; }
+
+/* ---- honeypot ----
+   Off-screen, never focusable. Lives here rather than in a style
+   attribute because the page's CSP sets style-src 'self', which
+   blocks inline styles — as an attribute it rendered as a visible
+   text box mid-form. */
+
+.honey {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
 /* ---- choice rows ---- */
 
 .choices {

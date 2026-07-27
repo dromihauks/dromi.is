@@ -64,6 +64,30 @@
     });
   }
 
+  /* ---- answerable units -------------------------------------
+     Most .q blocks hold one answer. The setup block holds several,
+     each wrapped in a .subq — so the export walks subqs where they
+     exist and the .q itself where they don't. The counter, by
+     contrast, always counts whole .q blocks: a five-row setup block
+     reads as one question to the person filling it in, and inflating
+     the total just makes the form look longer than it is. */
+
+  function unitsIn(sec) {
+    var out = [];
+    sec.querySelectorAll(".q").forEach(function (q) {
+      var subs = q.querySelectorAll(".subq");
+      if (subs.length) subs.forEach(function (s) { out.push(s); });
+      else out.push(q);
+    });
+    return out;
+  }
+
+  function isAnswered(unit) {
+    if (unit.querySelector("input[type=radio]:checked")) return true;
+    var field = unit.querySelector("input[type=text], textarea");
+    return !!(field && field.value.trim() !== "");
+  }
+
   /* ---- answered counter ------------------------------------- */
 
   function updateCount() {
@@ -72,13 +96,11 @@
     document.querySelectorAll("main section[data-sec]").forEach(function (sec) {
       sec.querySelectorAll(".q").forEach(function (q) {
         total++;
-        var checked = q.querySelector("input[type=radio]:checked");
-        var field = q.querySelector("input[type=text], textarea");
-        if (checked || (field && field.value.trim() !== "")) answered++;
+        if (isAnswered(q)) answered++;
       });
     });
     countEl.textContent = "answered " + answered + " of " + total +
-      " — every one helps, only your name is required";
+      " — every one helps, only your name and build number are required";
   }
 
   /* ---- file-size guard -------------------------------------- */
@@ -115,21 +137,30 @@
      their own answers and send it any way they like. Reads the live
      DOM (not localStorage) so it matches what's on screen. */
 
-  function labelFor(q) {
-    var el = q.querySelector(".q-label");
-    if (!el) return q.getAttribute("data-label") || "(question)";
+  function labelFor(unit) {
+    // data-label wins where it exists — it is the one place the exact
+    // exported wording is set by hand.
+    var explicit = unit.getAttribute("data-label");
+    if (explicit) return explicit;
+    var el = unit.querySelector(".q-label, .subq-label");
+    if (!el) return "(question)";
     var clone = el.cloneNode(true);
-    // drop the "(required — …)" and inline scale hints from the label
-    clone.querySelectorAll(".req, .hint-inline").forEach(function (n) {
+    // drop the "(required — …)" note
+    clone.querySelectorAll(".req").forEach(function (n) {
       n.parentNode.removeChild(n);
+    });
+    // keep the 1–10 anchors, but set them off — a bare "Fun / 5" in the
+    // exported file is unreadable without knowing which end is good.
+    clone.querySelectorAll(".hint-inline").forEach(function (n) {
+      n.textContent = " (" + n.textContent.replace(/\s+/g, " ").trim() + ")";
     });
     return clone.textContent.replace(/\s+/g, " ").trim();
   }
 
-  function answerFor(q) {
-    var checked = q.querySelector("input[type=radio]:checked");
+  function answerFor(unit) {
+    var checked = unit.querySelector("input[type=radio]:checked");
     if (checked) return checked.value;
-    var field = q.querySelector("input[type=text], textarea");
+    var field = unit.querySelector("input[type=text], textarea");
     if (field && field.value.trim() !== "") return field.value.trim();
     return "";
   }
@@ -143,10 +174,10 @@
 
     document.querySelectorAll("main section[data-sec]").forEach(function (sec) {
       var block = [];
-      sec.querySelectorAll(".q").forEach(function (q) {
-        var answer = answerFor(q);
+      unitsIn(sec).forEach(function (unit) {
+        var answer = answerFor(unit);
         if (!answer) return; // skipped questions stay out of the file
-        block.push(labelFor(q));
+        block.push(labelFor(unit));
         block.push("    " + answer.replace(/\r?\n/g, "\r\n    "));
         block.push("");
       });
@@ -200,6 +231,15 @@
       if (fileInput) fileInput.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
+    // Ride a formatted copy of the whole report along in a hidden field.
+    // FormSubmit labels each row by the input's name attribute, so the
+    // emailed table is otherwise a wall of "night_and_danger: …". This
+    // gives one readable block at the top. Never let it block the send.
+    try {
+      var full = document.getElementById("full-report");
+      if (full) full.value = buildReportText();
+    } catch (err) { /* formatting is a nicety; the fields still send */ }
+
     // let it submit natively to FormSubmit; keep answers in storage as a
     // safety net in case the network hiccups (cleared via the clear button).
     if (sendStatus) sendStatus.textContent = "sending…";
