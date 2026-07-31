@@ -1,7 +1,7 @@
 /* Víbrur Games — playtest report page behaviour
    ================================================================
    The form POSTs straight to a form backend (FormSubmit) which
-   emails the answers + any attached log file to dromi@dromi.is.
+   emails the answers + any attached log file to dromi@vibrur.is.
    This script only adds quality-of-life: answers autosave to this
    browser as the tester types (so they don't lose work), follow-up
    questions that only appear when a tapped answer makes them
@@ -15,7 +15,7 @@
   var STORAGE_KEY = "bt-playtest-report-v1";
   var MAX_BYTES = 10 * 1024 * 1024; // FormSubmit free tier: 10 MB total
   var ATTACH_IDLE_TEXT = "screenshots of bugs are welcome here too. " +
-    "up to 10 MB total — bigger than that? email it to dromi@dromi.is " +
+    "up to 10 MB total — bigger than that? email it to dromi@vibrur.is " +
     "instead; the rest still sends.";
 
   var form = document.getElementById("report-form");
@@ -195,7 +195,7 @@
     if (bytes > MAX_BYTES) {
       attachHint.textContent = "that's " + fmtMB(bytes) +
         " — over the 10 MB limit. attach just the newest BetterTogether.log, " +
-        "or email the big file to dromi@dromi.is. (your answers will still send.)";
+        "or email the big file to dromi@vibrur.is. (your answers will still send.)";
       attachHint.classList.add("attach-over");
       return false;
     }
