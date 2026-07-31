@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /en-trans/
 
-Sitemap: https://dromi.is/sitemap.xml
+Sitemap: https://vibrur.is/sitemap.xml
